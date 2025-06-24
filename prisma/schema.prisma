@@ -1,0 +1,484 @@
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_URL")
+//   directUrl = env("DATABASE_URL")
+// }
+
+// model User {
+//   id            String        @id @default(cuid())
+//   email         String        @unique
+//   name          String?
+//   phone         String?
+//   createdAt     DateTime      @default(now())
+//   updatedAt     DateTime      @updatedAt
+//   appointments  Appointment[]
+//   tasks         Task[]
+//   callLogs      CallLog[]
+// }
+
+// model Appointment {
+//   id           String   @id @default(cuid())
+//   userId       String
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   type         String   // salon, barber, restaurant, etc.
+//   providerName String
+//   providerPhone String?
+//   location     String
+//   address      String?
+//   latitude     Float?
+//   longitude    Float?
+//   price        String?
+//   scheduledTime DateTime
+//   duration     Int?     // in minutes
+//   status       String   @default("pending") // pending, confirmed, cancelled, completed
+//   notes        String?
+//   taskId       String?  // Link to the task that created this appointment
+//   callLogId    String?  // Link to call log if call was made
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @updatedAt
+
+//   @@map("appointments")
+// }
+
+// model Task {
+//   id          String   @id @default(cuid())
+//   userId      String
+//   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   originalText String  // original user input
+//   parsedData  Json     // structured data from AI
+//   status      String   @default("processing") // processing, completed, failed
+//   steps       Json     // array of detailed steps and their status
+//   result      String?
+//   error       String?
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+
+//   @@map("tasks")
+// }
+
+// model Provider {
+//   id        String   @id @default(cuid())
+//   name      String
+//   type      String   // salon, barber, restaurant, etc.
+//   phone     String?
+//   address   String
+//   latitude  Float?
+//   longitude Float?
+//   rating    Float?
+//   priceRange String? // $, $$, $$$
+//   hours     Json?    // operating hours
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@map("providers")
+// }
+
+// model CallLog {
+//   id            String   @id @default(cuid())
+//   userId        String
+//   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   appointmentId String?  // Link to appointment if applicable
+//   phoneNumber   String
+//   providerName  String?
+//   callDuration  Int?     // in seconds
+//   status        String   // initiated, completed, failed, no-answer
+//   transcript    Json?    // Full conversation transcript
+//   summary       String?  // AI-generated summary
+//   recordingUrl  String?  // URL to audio recording if available
+//   vapiCallId    String?  // Vapi call ID for reference
+//   createdAt     DateTime @default(now())
+//   updatedAt     DateTime @updatedAt
+
+//   @@map("call_logs")
+// }
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_URL")
+//   directUrl = env("DATABASE_URL")
+// }
+
+// model User {
+//   id               String            @id @default(cuid())
+//   email            String            @unique
+//   name             String?
+//   phone            String?
+//   createdAt        DateTime          @default(now())
+//   updatedAt        DateTime          @updatedAt
+//   appointments     Appointment[]
+//   tasks            Task[]
+//   callLogs         CallLog[]
+//   voiceSessions    VoiceSession[]
+//   voicePreferences VoicePreferences?
+// }
+
+// model Appointment {
+//   id            String   @id @default(cuid())
+//   userId        String
+//   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   type          String // salon, barber, restaurant, etc.
+//   providerName  String
+//   providerPhone String?
+//   location      String
+//   address       String?
+//   latitude      Float?
+//   longitude     Float?
+//   price         String?
+//   scheduledTime DateTime
+//   duration      Int? // in minutes
+//   status        String   @default("pending") // pending, confirmed, cancelled, completed
+//   notes         String?
+//   taskId        String? // Link to the task that created this appointment
+//   callLogId     String? // Link to call log if call was made
+//   createdAt     DateTime @default(now())
+//   updatedAt     DateTime @updatedAt
+
+//   @@map("appointments")
+// }
+
+// model Task {
+//   id            String         @id @default(cuid())
+//   userId        String
+//   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   originalText  String // original user input
+//   parsedData    Json // structured data from AI
+//   status        String         @default("processing") // processing, completed, failed
+//   steps         Json // array of detailed steps and their status
+//   result        String?
+//   error         String?
+//   createdAt     DateTime       @default(now())
+//   updatedAt     DateTime       @updatedAt
+//   voiceSessions VoiceSession[]
+
+//   @@map("tasks")
+// }
+
+// model Provider {
+//   id         String   @id @default(cuid())
+//   name       String
+//   type       String // salon, barber, restaurant, etc.
+//   phone      String?
+//   address    String
+//   latitude   Float?
+//   longitude  Float?
+//   rating     Float?
+//   priceRange String? // $, $$, $$$
+//   hours      Json? // operating hours
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+
+//   @@map("providers")
+// }
+
+// model CallLog {
+//   id            String   @id @default(cuid())
+//   userId        String
+//   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   appointmentId String? // Link to appointment if applicable
+//   phoneNumber   String
+//   providerName  String?
+//   callDuration  Int? // in seconds
+//   status        String // initiated, completed, failed, no-answer
+//   transcript    Json? // Full conversation transcript
+//   summary       String? // AI-generated summary
+//   recordingUrl  String? // URL to audio recording if available
+//   vapiCallId    String? // Vapi call ID for reference
+//   createdAt     DateTime @default(now())
+//   updatedAt     DateTime @updatedAt
+
+//   @@map("call_logs")
+// }
+
+// // NEW: Voice Assistant Tables
+// model VoiceSession {
+//   id     String @id @default(cuid())
+//   userId String
+//   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   status      String @default("active") // active, completed, cancelled, failed
+//   currentStep String @default("greeting") // greeting, collecting_service, collecting_email, collecting_location, confirming, executing, completed
+
+//   // Collected data during conversation
+//   serviceType            String?
+//   userEmail              String?
+//   location               String?
+//   preferences            String?
+//   timePreference         String?
+//   pricePreference        String?
+//   additionalRequirements String?
+
+//   // Session metadata
+//   startedAt    DateTime  @default(now())
+//   completedAt  DateTime?
+//   lastActiveAt DateTime  @default(now())
+
+//   // Conversation history
+//   messages VoiceMessage[]
+
+//   // Link to executed task
+//   taskId String?
+//   task   Task?   @relation(fields: [taskId], references: [id])
+
+//   @@map("voice_sessions")
+// }
+
+// model VoiceMessage {
+//   id        String       @id @default(cuid())
+//   sessionId String
+//   session   VoiceSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+//   speaker         String // "user" or "assistant"
+//   message         String
+//   audioTranscript String? // Original speech-to-text result
+//   intent          String? // Detected intent (service_type, email, location, etc.)
+//   confidence      Float? // Speech recognition confidence
+
+//   timestamp DateTime @default(now())
+
+//   @@map("voice_messages")
+// }
+
+// model VoicePreferences {
+//   id     String @id @default(cuid())
+//   userId String @unique
+//   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   // TTS preferences
+//   preferredVoice String @default("Google UK English Female")
+//   speechRate     Float  @default(1.0) // 0.1 to 10
+//   speechPitch    Float  @default(1.0) // 0 to 2
+//   speechVolume   Float  @default(1.0) // 0 to 1
+
+//   // Assistant behavior
+//   autoFillEnabled        Boolean @default(true)
+//   confirmBeforeExecution Boolean @default(true)
+//   detailedResponses      Boolean @default(true)
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@map("voice_preferences")
+// }
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(cuid())
+  email            String            @unique
+  name             String?
+  phone            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  appointments     Appointment[]
+  tasks            Task[]
+  callLogs         CallLog[]
+  voiceSessions    VoiceSession[]
+  voicePreferences VoicePreferences?
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          String // salon, barber, restaurant, etc.
+  providerName  String
+  providerPhone String?
+  location      String
+  address       String?
+  latitude      Float?
+  longitude     Float?
+  price         String?
+  scheduledTime DateTime
+  duration      Int? // in minutes
+  status        String   @default("pending") // pending, confirmed, cancelled, completed
+  notes         String?
+  taskId        String? // Link to the task that created this appointment
+  callLogId     String? // Link to call log if call was made
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // 🔗 OMNIDIM: Relation to Omnidim call logs
+  omnidimCallLogs OmnidimCallLog[]
+
+  @@map("appointments")
+}
+
+model Task {
+  id            String         @id @default(cuid())
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  originalText  String // original user input
+  parsedData    Json // structured data from AI
+  status        String         @default("processing") // processing, completed, failed
+  steps         Json // array of detailed steps and their status
+  result        String?
+  error         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  voiceSessions VoiceSession[]
+
+  @@map("tasks")
+}
+
+model Provider {
+  id         String   @id @default(cuid())
+  name       String
+  type       String // salon, barber, restaurant, etc.
+  phone      String?
+  address    String
+  latitude   Float?
+  longitude  Float?
+  rating     Float?
+  priceRange String? // $, $$, $$$
+  hours      Json? // operating hours
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("providers")
+}
+
+model CallLog {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointmentId String? // Link to appointment if applicable
+  phoneNumber   String
+  providerName  String?
+  callDuration  Int? // in seconds
+  status        String // initiated, completed, failed, no-answer
+  transcript    Json? // Full conversation transcript
+  summary       String? // AI-generated summary
+  recordingUrl  String? // URL to audio recording if available
+  vapiCallId    String? // Vapi call ID for reference
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("call_logs")
+}
+
+// NEW: Voice Assistant Tables
+model VoiceSession {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status      String @default("active") // active, completed, cancelled, failed
+  currentStep String @default("greeting") // greeting, collecting_service, collecting_email, collecting_location, confirming, executing, completed
+
+  // Collected data during conversation
+  serviceType            String?
+  userEmail              String?
+  location               String?
+  preferences            String?
+  timePreference         String?
+  pricePreference        String?
+  additionalRequirements String?
+
+  // Session metadata
+  startedAt    DateTime  @default(now())
+  completedAt  DateTime?
+  lastActiveAt DateTime  @default(now())
+
+  // Conversation history
+  messages VoiceMessage[]
+
+  // Link to executed task
+  taskId String?
+  task   Task?   @relation(fields: [taskId], references: [id])
+
+  @@map("voice_sessions")
+}
+
+model VoiceMessage {
+  id        String       @id @default(cuid())
+  sessionId String
+  session   VoiceSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  speaker         String // "user" or "assistant"
+  message         String
+  audioTranscript String? // Original speech-to-text result
+  intent          String? // Detected intent (service_type, email, location, etc.)
+  confidence      Float? // Speech recognition confidence
+
+  timestamp DateTime @default(now())
+
+  @@map("voice_messages")
+}
+
+model VoicePreferences {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // TTS preferences
+  preferredVoice String @default("Google UK English Female")
+  speechRate     Float  @default(1.0) // 0.1 to 10
+  speechPitch    Float  @default(1.0) // 0 to 2
+  speechVolume   Float  @default(1.0) // 0 to 1
+
+  // Assistant behavior
+  autoFillEnabled        Boolean @default(true)
+  confirmBeforeExecution Boolean @default(true)
+  detailedResponses      Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("voice_preferences")
+}
+
+// 📞 OMNIDIM INTEGRATION MODELS - START
+// These models handle the Omnidim AI receptionist integration
+
+model OmnidimConfig {
+  id          String   @id @default("main")
+  agentId     String   @unique
+  phoneNumber String
+  agentName   String   @default("Saloni AI")
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("omnidim_config")
+}
+
+model OmnidimCallLog {
+  id                   String   @id @default(cuid())
+  callId               String   @unique // Omnidim's call ID
+  callerName           String? // Who called (salon owner, etc.)
+  salonName            String? // Name of the salon/business
+  clientName           String? // Customer name mentioned in call
+  appointmentDate      String? // Date mentioned in call
+  appointmentTime      String? // Time mentioned in call
+  appointmentStatus    String? // "confirmed", "rescheduled", "cancelled"
+  newAppointmentDate   String? // If rescheduled, new date
+  newAppointmentTime   String? // If rescheduled, new time
+  transcript           String? // Full call transcript
+  duration             Int      @default(0) // Call duration in seconds
+  processed            Boolean  @default(false) // Whether we've processed this call
+  matchedAppointmentId String? // ID of appointment this call relates to
+  createdAt            DateTime @default(now())
+
+  // 🔗 Relation to existing appointment (if matched)
+  matchedAppointment Appointment? @relation(fields: [matchedAppointmentId], references: [id])
+
+  @@map("omnidim_call_logs")
+}
+
+// 📞 OMNIDIM INTEGRATION MODELS - END
