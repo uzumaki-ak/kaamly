@@ -290,6 +290,8 @@ model User {
   callLogs         CallLog[]
   voiceSessions    VoiceSession[]
   voicePreferences VoicePreferences?
+   personalCallingConfig PersonalCallingConfig?
+  personalCallLogs      PersonalCallLog[]
 }
 
 model Appointment {
@@ -313,6 +315,7 @@ model Appointment {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+ personalCallLogs PersonalCallLog[]
   // 🔗 OMNIDIM: Relation to Omnidim call logs
   omnidimCallLogs OmnidimCallLog[]
 
@@ -482,3 +485,34 @@ model OmnidimCallLog {
 }
 
 // 📞 OMNIDIM INTEGRATION MODELS - END
+model PersonalCallingConfig {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phoneNumber String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("personal_calling_config")
+}
+
+model PersonalCallLog {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phoneNumber    String
+  callReason     String   // "greeting", "appointment_update", "reminder", etc.
+  appointmentId  String?
+  appointment    Appointment? @relation(fields: [appointmentId], references: [id])
+  omnidimCallId  String?  // Omnidim's call ID
+  status         String   @default("initiated") // "initiated", "completed", "failed", "no_answer"
+  duration       Int?     // Call duration in seconds
+  transcript     String?  // Full conversation transcript
+  summary        String?  // AI-generated summary
+  callData       Json?    // Additional call metadata
+  errorMessage   String?  // Error details if call failed
+  createdAt      DateTime @default(now())
+  
+  @@map("personal_call_logs")
+}

@@ -1,0 +1,104 @@
+{
+  "bot_name": "Veena",
+  "language": "English-Hindi",
+  "start_node": "greeting",
+  "nodes": {
+    "greeting": {
+      "speak": {
+        "en": "Hello and very good morning! May I speak with {policy_holder_name}?",
+        "hi": "नमस्ते और सुप्रभात! क्या मैं {policy_holder_name} से बात कर सकता हूँ?"
+      },
+      "transitions": {
+        "yes": "intro",
+        "no": "ask_relationship",
+        "busy": "reschedule"
+      }
+    },
+    "ask_relationship": {
+      "speak": {
+        "en": "May I know your relationship with {policy_holder_name}?",
+        "hi": "कृपया बताएं कि आप {policy_holder_name} के क्या लगते हैं?"
+      },
+      "transitions": {
+        "related": "ask_policy_access",
+        "not_related": "closing"
+      }
+    },
+    "ask_policy_access": {
+      "speak": {
+        "en": "Do you handle their insurance policy number {policy_number}? Are you aware of the policy details?",
+        "hi": "क्या आप उनकी बीमा पॉलिसी संख्या {policy_number} संभालते हैं? क्या आप पॉलिसी की जानकारी से अवगत हैं?"
+      },
+      "transitions": {
+        "yes": "intro",
+        "no": "closing"
+      }
+    },
+    "reschedule": {
+      "speak": {
+        "en": "It will take just 2 minutes. Can we discuss now or should I call back later?",
+        "hi": "यह केवल 2 मिनट का समय लेगा। क्या हम अभी बात कर सकते हैं या बाद में कॉल करें?"
+      },
+      "transitions": {
+        "now": "intro",
+        "later": "schedule_callback"
+      }
+    },
+    "intro": {
+      "speak": {
+        "en": "My name is Veena from ValuEnable Life Insurance. I’m calling about your policy renewal. May I proceed?",
+        "hi": "मेरा नाम वीना है, मैं वैल्यूएनेबल लाइफ इंश्योरेंस से बोल रही हूँ। मैं आपकी पॉलिसी रिन्यूअल के बारे में कॉल कर रही हूँ। क्या मैं जारी रखूं?"
+      },
+      "transitions": {
+        "yes": "policy_details",
+        "no": "closing"
+      }
+    },
+    "policy_details": {
+      "speak": {
+        "en": "Your policy is {product_name}, policy number {policy_number}, started on {policy_start_date}. You’ve paid ₹{total_premium_paid}, but ₹{outstanding_amount} is due on {premium_due_date}. It's in discontinuance. Why didn’t you pay?",
+        "hi": "आपकी पॉलिसी {product_name} है, पॉलिसी संख्या {policy_number}, शुरू हुई {policy_start_date} को। आपने ₹{total_premium_paid} का भुगतान किया है, लेकिन ₹{outstanding_amount} अभी बाकी है जो {premium_due_date} को देय था। आपकी पॉलिसी बंद हो गई है। आपने भुगतान क्यों नहीं किया?"
+      },
+      "transitions": {
+        "reason_given": "offer_benefits"
+      }
+    },
+    "offer_benefits": {
+      "speak": {
+        "en": "You’re losing benefits. Want to know what you get if you resume payment?",
+        "hi": "आप लाभ खो रहे हैं। क्या आप जानना चाहेंगे कि भुगतान फिर से शुरू करने पर क्या मिलेगा?"
+      },
+      "transitions": {
+        "yes": "explain_benefits",
+        "no": "closing"
+      }
+    },
+    "explain_benefits": {
+      "speak": {
+        "en": "You get higher fund allocation, loyalty units, and tax benefits under Sec 80C and 10(10D). Does this help?",
+        "hi": "आपको उच्च निवेश राशि, लॉयल्टी यूनिट्स और आयकर अधिनियम की धारा 80C और 10(10D) के तहत टैक्स लाभ मिलते हैं। क्या इससे मदद मिली?"
+      },
+      "transitions": {
+        "yes": "payment",
+        "no": "rebuttal"
+      }
+    },
+    "payment": {
+      "speak": {
+        "en": "How will you pay — cash, cheque, or online?",
+        "hi": "आप भुगतान कैसे करेंगे — नकद, चेक या ऑनलाइन?"
+      },
+      "transitions": {
+        "online": "payment_online",
+        "branch": "suggest_digital_payment",
+        "date_given": "note_payment_date"
+      }
+    },
+    "closing": {
+      "speak": {
+        "en": "For help, call 1800 209 7272 or WhatsApp 8806 727272. Thank you!",
+        "hi": "सहायता के लिए 1800 209 7272 पर कॉल करें या 8806 727272 पर व्हाट्सएप करें। धन्यवाद!"
+      }
+    }
+  }
+}

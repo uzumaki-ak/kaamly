@@ -448,59 +448,59 @@ function generateSimulatedTranscript(appointmentDetails: any, successful: boolea
       conversation: [
         {
           timestamp: timestamp,
-          speaker: "Riley_AI",
-          message: `🎭 DEMO: Hello! This is Riley from Wellness Partners. I'm calling to inquire about booking a ${appointmentDetails.service_type} appointment. Is this a good time to talk?`,
+          speaker: "Saloni-Ai",
+          message: `Staff: Hello! This is Riley from Wellness Partners. I'm calling to inquire about booking a ${appointmentDetails.service_type} appointment. Is this a good time to talk?`,
         },
         {
           timestamp: timestamp,
           speaker: "Staff",
-          message: "ai assistant: Hi Riley! Yes, this is a good time. How can I help you today?",
+          message: "SALONI: Hi Riley! Yes, this is a good time. How can I help you today?",
         },
         {
           timestamp: timestamp,
-          speaker: "Riley_AI",
-          message: ` ai assistant: Great! I'm calling on behalf of a customer who needs a ${appointmentDetails.service_type} appointment for ${appointmentDetails.time_preference}. Do you have any availability?`,
+          speaker: "Saloni-Ai",
+          message: `Staff: Great! I'm calling on behalf of a customer who needs a ${appointmentDetails.service_type} appointment for ${appointmentDetails.time_preference}. Do you have any availability?`,
+        },
+        {
+          timestamp: timestamp,
+          speaker: "Saloni-Ai",
+          message: `Staff: Let me check our schedule... Yes, we have availability tomorrow at 2 PM for ${appointmentDetails.service_type}. Would that work for your customer?`,
+        },
+        {
+          timestamp: timestamp,
+          speaker: "Saloni-Ai",
+          message: "Staff: That sounds perfect! Could you tell me about the pricing for this service?",
         },
         {
           timestamp: timestamp,
           speaker: "Staff",
-          message: `🎭 DEMO: Let me check our schedule... Yes, we have availability tomorrow at 2 PM for ${appointmentDetails.service_type}. Would that work for your customer?`,
+          message: `Staff: The cost would be ₹800 for the ${appointmentDetails.service_type}. We'll need the customer's name and contact number to confirm the booking.`,
         },
         {
           timestamp: timestamp,
-          speaker: "Riley_AI",
-          message: "🎭 DEMO: That sounds perfect! Could you tell me about the pricing for this service?",
-        },
-        {
-          timestamp: timestamp,
-          speaker: "Staff",
-          message: `🎭 DEMO: The cost would be ₹800 for the ${appointmentDetails.service_type}. We'll need the customer's name and contact number to confirm the booking.`,
-        },
-        {
-          timestamp: timestamp,
-          speaker: "Riley_AI",
+          speaker: "Saloni-Ai",
           message:
-            "🎭 DEMO: Excellent! I'll have the customer call within the next hour to provide their details and confirm. Can you hold this 2 PM slot?",
+            "Staff: Excellent! I'll have the customer call within the next hour to provide their details and confirm. Can you hold this 2 PM slot?",
         },
         {
           timestamp: timestamp,
           speaker: "Staff",
           message:
-            "🎭 DEMO: I'll hold the 2 PM slot for one hour. Please have them mention this conversation with Riley when they call.",
+            "Staff: I'll hold the 2 PM slot for one hour. Please have them mention this conversation with Riley when they call.",
         },
         {
           timestamp: timestamp,
-          speaker: "Riley_AI",
-          message: "🎭 DEMO: Perfect! Thank you so much for your assistance. Have a wonderful day!",
+          speaker: "Saloni-Ai",
+          message: "Staff: Perfect! Thank you so much for your assistance. Have a wonderful day!",
         },
       ],
       summary: {
         status: "CONFIRMED",
         timeConfirmed: "Tomorrow 2 PM",
         priceConfirmed: "₹800",
-        notes: "🎭 DEMO: Simulated appointment booking. Customer needs to call to confirm with personal details.",
+        notes: "Staff: Simulated appointment booking. Customer needs to call to confirm with personal details.",
         duration: "3 minutes",
-        outcome: "✅ DEMO: Successful simulated booking with Riley AI assistant",
+        outcome: "✅: Successful  booking with saloni AI assistant",
       },
     }
   } else {
@@ -509,12 +509,12 @@ function generateSimulatedTranscript(appointmentDetails: any, successful: boolea
         {
           timestamp: timestamp,
           speaker: "System",
-          message: `🎭 DEMO: Call simulation failed: ${errorMessage || "Unable to connect"}`,
+          message: `Staff: Call simulation failed: ${errorMessage || "Unable to connect"}`,
         },
       ],
       summary: {
         status: "FAILED",
-        notes: `🎭 DEMO: Simulated call failed: ${errorMessage || "Call failed to connect"}`,
+        notes: `Staff: Simulated call failed: ${errorMessage || "Call failed to connect"}`,
         fallbackAction: "Manual booking simulation activated",
       },
     }

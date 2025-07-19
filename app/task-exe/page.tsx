@@ -1097,6 +1097,15 @@ export default function HomePage() {
             Dashboard
           </Button>
         </Link>
+        <Link href="/personal-calling">
+          <Button
+            variant="outline"
+            className="bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20 backdrop-blur-md transition-all duration-300"
+          >
+            <LayoutDashboard className="h-4 w-4 mr-2" />
+            Talk to AI-Assistant?
+          </Button>
+        </Link>
       </nav>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-12">
